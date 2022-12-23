@@ -8,7 +8,7 @@ urlpatterns = [
     path('courses', views.courses),
     path('student', views.student),
     path('teacher', views.teacher),
-    path('dashboard/', views.dashboard),
+    path('dashboard', views.dashboard),
     path('student', views.student),
     path('login', views.login),
     path('signup',views.signup),
@@ -24,6 +24,7 @@ urlpatterns = [
     path('updateteacher/<int:uid>/', views.updateteacher),
     path('searchteacher', views.searchteacher),
     path('update_teacher/', views.update_teacher),
-    path('logout', views.logout),
+    path('lgout', views.lgout),
+    path('totalfields', views.totalfields),
 
 ]

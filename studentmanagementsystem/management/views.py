@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.hashers import check_password,make_password
 from django.contrib import messages
+from django.contrib import auth
 from .models import Courses
 from .models import User
 from .models import Student
@@ -51,7 +52,7 @@ def login(request):
             us=User.objects.get(email=email)
             password=us.password
             if check_password(Password,password):
-              return redirect('/dashboard/')
+              return render(request,'dashboard.html')
             else:
                messages.error(request," Password is invalid")
                return redirect('/')
@@ -180,7 +181,8 @@ def update_teacher(request):
     t.save()
     teacher=Teacher.objects.all()
     return render(request,'teacher.html',{'teacher':teacher})
-def logout(request):
+def lgout(request):
+    auth.logout(request)
     return render(request,'sign-up.html')
 
 
