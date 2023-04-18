@@ -61,6 +61,8 @@ def login(request):
            return redirect('/')
     else:
         return redirect('/')
+    
+    
 def addcourses(request):
         course=request.POST['course']
         duration = request.POST['duration']
@@ -75,13 +77,16 @@ def addcourses(request):
             Courses.objects.create(Courses_name=course, Courses_duration=duration, Courses_textbox=text, Courses_fees=fees)
             messages.success(request,"Suucessfully Added Course")
             data=Courses.objects.all()
-            
             return render(request,'Courses.html',{'data':data})
+        
+        
 def delete(request):
     id=request.GET['id']
     Courses.objects.filter(id=id).delete()
     data=Courses.objects.all()
     return render(request,'Courses.html',{'data':data})
+
+
 def updatecourse(request):
     id=request.POST['id']
     c=Courses.objects.get(id=id)
@@ -106,6 +111,8 @@ def addstudent(request):
     studentdata=Student.objects.all()
     data=Courses.objects.all()
     return render(request,'viewstudents.html',{'studentdata':studentdata,'data':data})
+
+
 def allstudent(request):
     s=Student()
     s.id=request.POST['id']
@@ -120,22 +127,30 @@ def allstudent(request):
     studentdata = Student.objects.all()
     data=Courses.objects.all()
     return render(request,'viewstudents.html',{'data':data,'studentdata':studentdata})
+
+
 def deletestudent(request):
     did=request.GET['stud']
     Student.objects.filter(id=did).delete()
     studentdata = Student.objects.all()
     data=Courses.objects.all()
     return render(request,'viewstudents.html',{'data':data ,'studentdata':studentdata})
+
+
 def searchstudent(request):
     name=request.POST['name']
     s=Student.objects.filter(Q(student_email=name) | Q(student_name=name) | Q(student_college=name) | Q(student_degree=name)).all()
     return render(request,'viewstudents.html',{'studentdata':s})
+
+
 def totalfields(request):
     data=Courses.objects.all()
     x=Courses.objects.all().count()
     y = Student.objects.all().count()
     z=Teacher.objects.all().count()
     return render(request,'dashboard.html',{'data':data,'x':x,'y':y,'z':z})
+
+
 def addteacher(request):
     teacher_name=request.POST['tname']
     teacher_email = request.POST['temail']
